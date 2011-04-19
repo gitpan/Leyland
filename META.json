@@ -1,0 +1,70 @@
+{
+   "abstract" : "Plack-based framework for RESTful web applications",
+   "author" : [
+      "Ido Perlmuter <ido@ido50.net>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110930",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Leyland",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.31"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "App::Cmd::Setup" : 0,
+            "Carp" : 0,
+            "Cwd" : 0,
+            "Data::Dumper" : 0,
+            "Devel::Declare::Interface" : 0,
+            "Devel::Declare::Parser" : 0,
+            "Encode" : 0,
+            "Exporter::Declare" : 0,
+            "File::Path" : 0,
+            "JSON::Any" : 0,
+            "Locale::Wolowitz" : 0,
+            "Log::Dispatch" : 0,
+            "Log::Handler" : 0,
+            "Module::Load" : 0,
+            "Moose" : 0,
+            "Moose::Role" : 0,
+            "MooseX::ClassAttribute" : 0,
+            "MooseX::NonMoose" : 0,
+            "Plack::Request" : 0,
+            "Tenjin" : "0.070001",
+            "Text::SpanningTable" : 0,
+            "Throwable" : 0,
+            "Tie::IxHash" : 0,
+            "Try::Tiny" : 0,
+            "XML::TreePP" : 0,
+            "namespace::autoclean" : 0,
+            "perl" : "5.006"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : 0
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "homepage" : "http://github.com/ido50/Leyland/tree",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/ido50/Leyland.git",
+         "web" : "http://github.com/ido50/Leyland/tree"
+      }
+   },
+   "version" : "0.001"
+}
+
