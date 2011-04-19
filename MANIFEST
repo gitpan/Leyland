@@ -28,6 +28,7 @@ lib/Leyland/Manual/Controllers.pod
 lib/Leyland/Manual/Deployment.pod
 lib/Leyland/Manual/Exceptions.pod
 lib/Leyland/Manual/Extending.pod
+lib/Leyland/Manual/FAQ.pod
 lib/Leyland/Manual/Localization.pod
 lib/Leyland/Manual/Logging.pod
 lib/Leyland/Manual/Models.pod

@@ -12,7 +12,7 @@ Leyland::Localizer - Wrapper for the Locale::Wolowitz localization system for Le
 
 =head1 VERSION
 
-version 0.001
+version 0.001001
 
 =head1 SYNOPSIS
 

@@ -12,7 +12,7 @@ Leyland::View::Tenjin - Tenjin view class for Leyland
 
 =head1 VERSION
 
-version 0.001
+version 0.001001
 
 =head1 SYNOPSIS
 

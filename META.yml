@@ -44,4 +44,4 @@ requires:
 resources:
   homepage: http://github.com/ido50/Leyland/tree
   repository: git://github.com/ido50/Leyland.git
-version: 0.001
+version: 0.001001
