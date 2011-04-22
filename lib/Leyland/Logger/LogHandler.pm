@@ -12,7 +12,7 @@ Leyland::Logger::LogHandler - Use Log::Handler as your app's logger
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 

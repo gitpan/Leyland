@@ -12,7 +12,7 @@ Leyland::Controller - Leyland controller base class
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
@@ -75,6 +75,14 @@ sub add_route {
 	}
 	push(@{$rules->{accepts}}, 'application/x-www-form-urlencoded')
 		if (($method eq 'post' || $method eq 'put') && !$xwfu);
+
+	# handle routes that return anything
+	foreach (@{$rules->{returns}}) {
+		if ($_ eq '*/*') {
+			$rules->{returns_all} = 1;
+			last;
+		}
+	}
 
 	my $routes = $class->has_routes ? $class->routes : Tie::IxHash->new;
 	

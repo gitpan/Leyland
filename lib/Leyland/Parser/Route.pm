@@ -15,7 +15,7 @@ Leyland::Parser::Route - Parses route definitions in Leyland controllers
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
