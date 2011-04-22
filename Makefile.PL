@@ -37,6 +37,7 @@ my %WriteMakefileArgs = (
     'Locale::Wolowitz' => '0',
     'Log::Dispatch' => '0',
     'Log::Handler' => '0',
+    'MIME::Types' => '0',
     'Module::Load' => '0',
     'Moose' => '0',
     'Moose::Role' => '0',
@@ -51,7 +52,7 @@ my %WriteMakefileArgs = (
     'XML::TreePP' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.001001',
+  'VERSION' => '0.001002',
   'test' => {
     'TESTS' => 't/*.t'
   }
