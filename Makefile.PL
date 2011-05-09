@@ -52,7 +52,7 @@ my %WriteMakefileArgs = (
     'XML::TreePP' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.001003',
+  'VERSION' => '0.001004',
   'test' => {
     'TESTS' => 't/*.t'
   }

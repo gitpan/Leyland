@@ -17,7 +17,7 @@ Leyland::Cmd::Command::app - Logic for the 'app' command of the 'leyland' comman
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 METHODS
 

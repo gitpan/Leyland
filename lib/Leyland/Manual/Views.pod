@@ -4,7 +4,7 @@ Leyland::Manual::Views - Using Leyland view classes
 
 =head1 VERSION
 
-version 0.001003
+version 0.001004
 
 =head1 RESOURCES AND REPRESENTATIONS
 
