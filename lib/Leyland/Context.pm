@@ -24,7 +24,7 @@ Leyland::Context - The working environment of an HTTP request and Leyland respon
 
 =head1 VERSION
 
-version 0.001004
+version 0.001005
 
 =head1 SYNOPSIS
 

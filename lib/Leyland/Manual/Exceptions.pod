@@ -4,7 +4,7 @@ Leyland::Manual::Exceptions - How to throw HTTP exceptions with Leyland
 
 =head1 VERSION
 
-version 0.001004
+version 0.001005
 
 =head1 HTTP EXCEPTIONS
 
@@ -18,7 +18,7 @@ If you're not that familiar with HTTP status codes, please read Wikipedia's
 L<list of HTTP status codes|https://secure.wikimedia.org/wikipedia/en/w/index.php?title=List_of_HTTP_status_codes&oldid=424349307>
 first.
 
-Usuaully, when everything is okay, your application will return a "200 OK"
+Usually, when everything is okay, your application will return a "200 OK"
 responses, or "201 Created" responses when new content was created because
 of a request, or basically any other 2xx family status. When your application
 wants to redirect a request, it will return one of the 3xx status codes.
@@ -131,7 +131,8 @@ Honestly.
 One type of exception you might find useful, however, is a redirecting
 exception, of the 3xx family. Usually, you should redirect requests using
 C<< $c->res->redirect >>. At (rare) times, you might feel the need to throw
-a 3xx exception. In which case, also supply a "location" option to C<< $c->exception >>
+a 3xx exception (this can most likely happen in C<auto()> and C<pre_route()>
+methods). In which case, also supply a "location" option to C<< $c->exception >>
 with the URI to redirect to:
 
 	$c->exception({ code => 303, error => "Please see the provided URI", location => $c->uri_for('/something') });

@@ -14,46 +14,46 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-SHA1 23d24a25d36f5982558bfb441a24a87c4033bfd7 Changes
+SHA1 fd5ccdd3d1a9cc1abf66513527e5f330e16d5399 Changes
 SHA1 786c1a0ae0ddf11766b712ec671448f778ce7c8d INSTALL
 SHA1 4fd10efcea7157e7d9c3a45e000c91119dcad1f7 LICENSE
 SHA1 7a86de13d1617bce0401bff8fe135c8c1f720037 MANIFEST
 SHA1 0020c6d9ef303cfb86788cbf54a4ca65f5ae7439 MANIFEST.SKIP
-SHA1 f1c5babc3e306aa46989cb389995156cc1289440 META.json
-SHA1 24a4f4dd9829c76ee4d88244244e1326b16fa428 META.yml
-SHA1 31598675ba38558ee9a66a8aaa300bbc1f1e2b1a Makefile.PL
-SHA1 0c5565d72339c6c1872439d28f68208fab93fb80 README
-SHA1 8848133e3f3a80ea61da2a730b49c071793083cf bin/leyland
+SHA1 cc8aadd89a20224d156d6f054d69004ba3b7a7b7 META.json
+SHA1 7ed63121549b7e41a32d503a8893415de1b5d5c8 META.yml
+SHA1 393f46e9f5d73581ec11e11adfafbbc2cc2593d3 Makefile.PL
+SHA1 ae172232f420c175b00274b1e4603a1416ba4bb2 README
+SHA1 bbaeb1cbed38f3801658f22411a88846d902ad64 bin/leyland
 SHA1 b45ec1390d014ead58e1b70f1d258105e8c2a724 dist.ini
-SHA1 ff50ac233da3110d059949ff33c9f4e39dadf766 lib/Leyland.pm
-SHA1 db9ef39389998d2c0f0bd6e8254eec13c3b82909 lib/Leyland/Cmd.pm
-SHA1 ff192f9d608ae72db0d686fcbf9a246aaabdb99a lib/Leyland/Cmd/Command.pm
-SHA1 4616c4284cf16586631a0f8c45c568a0662809e5 lib/Leyland/Cmd/Command/app.pm
-SHA1 06144e23e6222483c325246de47b54fb8c2964a0 lib/Leyland/Context.pm
-SHA1 0023129c6b1cfc48bcad91f5b4ef4fe95801f839 lib/Leyland/Controller.pm
-SHA1 4bbcb5ef96149cad7b6efbb3531db31d282cee9f lib/Leyland/Exception.pm
-SHA1 89c36a94ae7f8fb11d349e28113ac0f3e3ed7913 lib/Leyland/Localizer.pm
-SHA1 0a6f07eed162d4760fa0c68ed3fb2b67e7b1039d lib/Leyland/Logger.pm
-SHA1 528ee41939d48838f5abd85ea9f04463ebd40b3e lib/Leyland/Logger/LogDispatch.pm
-SHA1 f792a7d2837c5eb44b380fe10ec15fd6500d1f23 lib/Leyland/Logger/LogHandler.pm
-SHA1 1022c4d293baafe4698c8140b9d21295c058de28 lib/Leyland/Logger/STDERR.pm
-SHA1 ce845f8cc43fab13012676270f3eacbf4b742a62 lib/Leyland/Manual.pod
-SHA1 1f74c41cbc151cdaa77f03dae521604dd125b9e0 lib/Leyland/Manual/Applications.pod
-SHA1 f45cf874a1ed9c5c6a4559ee6d0ba2512ea6b437 lib/Leyland/Manual/Controllers.pod
-SHA1 368f9da87227fb3151c1df0ed5dca1607722eda4 lib/Leyland/Manual/Deployment.pod
-SHA1 d7e7807c1bde44df911dc48e058877ab9951a590 lib/Leyland/Manual/Exceptions.pod
-SHA1 c9f85322554232ce6469bdbccaf322c053299ee2 lib/Leyland/Manual/Extending.pod
-SHA1 b9b74a047cd2285808deef5396c9d93bad06b9a8 lib/Leyland/Manual/FAQ.pod
-SHA1 79363b061b8e6a58ef780bdaaecd55605498e8f8 lib/Leyland/Manual/Localization.pod
-SHA1 1e6707c037e20fe0b1199471622cd9ab539723c2 lib/Leyland/Manual/Logging.pod
-SHA1 e833e0378c2c304c7705ca72704a76f4347f1993 lib/Leyland/Manual/Models.pod
-SHA1 c042f3809dcb65ecfe664284e60fbd9e586d63ce lib/Leyland/Manual/StaticFiles.pod
-SHA1 321aacd134648704deee466bc14950bfc089a6a7 lib/Leyland/Manual/Views.pod
-SHA1 f4d4f6cd9cf824824d258537a3ee43a5420e8886 lib/Leyland/Negotiator.pm
-SHA1 e32c46684d60bea8cc0d71d8399d4f928cffb291 lib/Leyland/Parser.pm
-SHA1 47afc4c2598c1173201fbbc85453d343d5b1a58a lib/Leyland/Parser/Route.pm
-SHA1 c8763da4c4f29c287135a84add08e72c0aacd5ea lib/Leyland/View.pm
-SHA1 0fe06691ed699afe7b124d254b7125074795640f lib/Leyland/View/Tenjin.pm
+SHA1 c91bde2ab4a9952faec94dcab889efd6778d0937 lib/Leyland.pm
+SHA1 48d92c8c35731eb748b320fd2a646d5472c90ae2 lib/Leyland/Cmd.pm
+SHA1 5ca2ff94e6e1260b0abcd6971dfa631c774bb3a3 lib/Leyland/Cmd/Command.pm
+SHA1 9c7a649d501012623c49a08a5f840214a5613719 lib/Leyland/Cmd/Command/app.pm
+SHA1 d63083bf514745bd7c1bfa04d5aa9b8e202fd058 lib/Leyland/Context.pm
+SHA1 2462f819ee58fecc08b1aba83d595fefc5a6fa4f lib/Leyland/Controller.pm
+SHA1 6ce8820b85a84b2f611e02ec09aa26b1c233db3f lib/Leyland/Exception.pm
+SHA1 d10e0dcd29b131a9d5f6e7b83a84f6a6b27e2955 lib/Leyland/Localizer.pm
+SHA1 c123c7a8a3ffb23f6bde7e421d236c34b7433493 lib/Leyland/Logger.pm
+SHA1 3d3cd780603113b49c3d2fefa0fd0c73cf7f8bb5 lib/Leyland/Logger/LogDispatch.pm
+SHA1 1404772dd6c6f5b72ed1edc7eb08ebc5b743e5b0 lib/Leyland/Logger/LogHandler.pm
+SHA1 285097d8c00f0bf029f619db60604d0eee151f1b lib/Leyland/Logger/STDERR.pm
+SHA1 cc8298acd626c2d5d9108147887500babff01655 lib/Leyland/Manual.pod
+SHA1 3c39ee2ee8b50d7a595e5ee1372421d93d65d4c8 lib/Leyland/Manual/Applications.pod
+SHA1 dee25a6ea73cdcea0429cce20d5e5209ac0f53bc lib/Leyland/Manual/Controllers.pod
+SHA1 ee904227a02df5b8e98a093e80d431ce76e8ab96 lib/Leyland/Manual/Deployment.pod
+SHA1 e9e078491b12a265c62165132ede3c4ee927d5cf lib/Leyland/Manual/Exceptions.pod
+SHA1 26831890c6364448890e9b7c0a9f1ae809f23c94 lib/Leyland/Manual/Extending.pod
+SHA1 7b9cd9e215dd196929141f9a340a01286f6d3f54 lib/Leyland/Manual/FAQ.pod
+SHA1 772b92ce63f2d166126e7dbe77d92a32e15c28f6 lib/Leyland/Manual/Localization.pod
+SHA1 248ffcbbaa9649610b3705681dd2d64d93350372 lib/Leyland/Manual/Logging.pod
+SHA1 da44abc13236b1e6ff63ce6cf2358cfe02d17227 lib/Leyland/Manual/Models.pod
+SHA1 b9e143e2f1f4d1566cbd684e14d5cd842395d462 lib/Leyland/Manual/StaticFiles.pod
+SHA1 4ce16ddff38cb2cd1d06ca55ac5dec67b586f9ae lib/Leyland/Manual/Views.pod
+SHA1 46aa83a6499a039e449a7680cd3b79d208544746 lib/Leyland/Negotiator.pm
+SHA1 d077070c0d3d25cc305f10f42ec8eebfaf89754c lib/Leyland/Parser.pm
+SHA1 e184f6a1d23a83b187787eddf9925f8f30bfb496 lib/Leyland/Parser/Route.pm
+SHA1 330fa099152926dabc0b2c1b6adbae89e9335e23 lib/Leyland/View.pm
+SHA1 82ac08670fb0d94bd51f1efabd0e6b7fc4ed2b45 lib/Leyland/View/Tenjin.pm
 SHA1 08854e3d17906c9fb6cbd60e90263f132bceb360 t/00-load.t
 SHA1 87768d177f8c2e2df9c591cde869e7c8a245555e t/release-dist-manifest.t
 SHA1 9433c240fe590bc404ab68ff63984df763e347ed t/release-pod-coverage.t
@@ -61,7 +61,7 @@ SHA1 b30cbdfaf935017c4568c0c91b242438cb87786e t/release-pod-syntax.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iF4EAREIAAYFAk3IHKQACgkQa4OHQAFM10cdIgEAmu2QZmdnhKpW6onNpr4TCYHQ
-Tg3Byrfhv4FCkm0NHLgA/RhEwLQh1U/S9rfkH28HR3Uyq6+qmp+Q2oKG1et5JyVD
-=V5GD
+iF4EAREIAAYFAk3n9bgACgkQa4OHQAFM10eP4wD/c815NhmOL567go5v1sjyHUgn
+E9QsZXC0GZkVnSCSyV4A/0aAFYz4CwGiPKUUmQj+zi/TE5Sfs6Hwd1GSEN9DM1L/
+=00Nf
 -----END PGP SIGNATURE-----
