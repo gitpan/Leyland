@@ -13,7 +13,7 @@ Leyland::Logger::STDERR - Default logger, logs to STDERR
 
 =head1 VERSION
 
-version 0.001005
+version 0.001006
 
 =head1 SYNOPSIS
 

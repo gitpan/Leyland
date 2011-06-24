@@ -11,7 +11,7 @@ Leyland::Logger - Logging facilities for Leyland application
 
 =head1 VERSION
 
-version 0.001005
+version 0.001006
 
 =head1 SYNOPSIS
 

@@ -12,7 +12,7 @@ Leyland::Logger::LogDispatch - Use Log::Dispatch as your app's logger
 
 =head1 VERSION
 
-version 0.001005
+version 0.001006
 
 =head1 SYNOPSIS
 

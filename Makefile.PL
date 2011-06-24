@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     'Module::Load' => '0',
     'Moose' => '0',
     'Moose::Role' => '0',
-    'MooseX::ClassAttribute' => '0',
+    'MooseX::ClassAttribute' => '0.24',
     'MooseX::NonMoose' => '0',
     'Plack::Request' => '0',
     'Tenjin' => '0.070001',
@@ -52,7 +52,7 @@ my %WriteMakefileArgs = (
     'XML::TreePP' => '0',
     'namespace::autoclean' => '0'
   },
-  'VERSION' => '0.001005',
+  'VERSION' => '0.001006',
   'test' => {
     'TESTS' => 't/*.t'
   }
