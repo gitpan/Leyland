@@ -2,7 +2,7 @@ package Leyland;
 
 # ABSTRACT: Plack-based framework for RESTful web applications
 
-our $VERSION = "0.001006";
+our $VERSION = "0.001007";
 $VERSION = eval $VERSION;
 
 use Moose;
@@ -24,7 +24,7 @@ Leyland - Plack-based framework for RESTful web applications
 
 =head1 VERSION
 
-version 0.001006
+version 0.001007
 
 =head1 SYNOPSIS
 
@@ -494,11 +494,11 @@ sub _handle_exception {
 		return $c->_respond($exp->code);
 	}
 
-	# are we on the development environment? if so, and the exception
-	# has no mimes, we croak with a simple error message so that Plack
-	# displays a nice stack trace
+	# are we on the development environment? if so, and the client
+	# accepts HTML (and the exception has no HTML MIME), we croak
+	# with a simple error message so that Plack displays a nice stack trace
 	croak $self->name.' croaked with HTTP status code '.$exp->code.' and error message "'.$err.'"'
-		if $self->cwe eq 'development' && !$exp->has_mimes;
+		if $self->cwe eq 'development' && $c->accepts('text/html') && (!$exp->has_mimes || !$exp->has_mime('text/html'));
 
 	# do we have templates for any of the client's requested MIME types?
 	# if so, render the first one you find.
@@ -592,14 +592,13 @@ sub _initial_debug_info {
 			$c =~ s!_root_!(root)!;
 			my $pre = $self->routes->FETCH($_);
 			foreach my $r (sort $pre->Keys) {
-				my ($regex) = ($r =~ m/^\(\?-xism:(.+)\)$/);
 				my $reg = $pre->FETCH($r);
 				foreach my $m (sort keys %$reg) {
 					my $returns = ref $reg->{$m}->{rules}->{returns} eq 'ARRAY' ? join(', ', @{$reg->{$m}->{rules}->{returns}}) : $reg->{$m}->{rules}->{returns};
 					my $accepts = ref $reg->{$m}->{rules}->{accepts} eq 'ARRAY' ? join(', ', @{$reg->{$m}->{rules}->{accepts}}) : $reg->{$m}->{rules}->{accepts};
 					my $is = ref $reg->{$m}->{rules}->{is} eq 'ARRAY' ? join(', ', @{$reg->{$m}->{rules}->{is}}) : $reg->{$m}->{rules}->{is};
 					
-					$t2->row($c, $regex, uc($m), $accepts, $returns, $is);
+					$t2->row($c, $r, uc($m), $accepts, $returns, $is);
 				}
 			}
 		}

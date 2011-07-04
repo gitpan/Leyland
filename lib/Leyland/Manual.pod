@@ -4,7 +4,7 @@ Leyland::Manual - Manual for the Leyland web application framework
 
 =head1 VERSION
 
-version 0.001006
+version 0.001007
 
 =head1 WHAT IS LEYLAND
 

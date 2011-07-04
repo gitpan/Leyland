@@ -10,7 +10,7 @@ Leyland::Cmd - Application logic for the 'leyland' command line application
 
 =head1 VERSION
 
-version 0.001006
+version 0.001007
 
 =head1 AUTHOR
 
