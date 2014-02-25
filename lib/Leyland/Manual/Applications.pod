@@ -4,7 +4,7 @@ Leyland::Manual::Applications - Leyland application structure and creation
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 APPLICATION STRUCTURE
 

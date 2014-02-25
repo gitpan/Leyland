@@ -4,7 +4,7 @@ Leyland::Manual::Upgrading - Guide for upgrading Leyland for existing applicatio
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 UPGRADING FROM VERSIONS 0.X.Y TO VERSIONS 1.X.Y
 

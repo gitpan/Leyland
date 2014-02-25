@@ -50,4 +50,4 @@ requires:
 resources:
   homepage: https://github.com/ido50/Leyland
   repository: https://github.com/ido50/Leyland.git
-version: 1.000000
+version: 1.000001

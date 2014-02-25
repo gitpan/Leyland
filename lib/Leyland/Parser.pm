@@ -12,7 +12,7 @@ Leyland::Parser - Provides the sweet REST syntax for Leyland controller routes
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 

@@ -11,7 +11,7 @@ Leyland::Exception - Throwable class for Leyland application exceptions
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 

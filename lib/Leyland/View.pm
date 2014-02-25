@@ -10,7 +10,7 @@ Leyland::View - Leyland view base class
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 

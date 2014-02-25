@@ -11,7 +11,7 @@ Leyland::Logger - Wrapper around Plack's logging middlewares
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 SYNOPSIS
 
