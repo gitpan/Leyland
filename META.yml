@@ -1,48 +1,53 @@
 ---
-abstract: 'Plack-based framework for RESTful web applications'
+abstract: 'RESTful web application framework based on Plack'
 author:
   - 'Ido Perlmuter <ido@ido50.net>'
 build_requires:
+  HTTP::Request::Common: 0
+  Plack::Test: 0
   Test::More: 0
+  lib: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200008, CPAN::Meta::Converter version 2.110440'
+generated_by: 'Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.132830'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Leyland
+recommends:
+  JSON: 2.50
+  JSON::XS: 2.3
 requires:
-  App::Cmd::Setup: 0
   Carp: 0
-  Cwd: 0
   Data::Dumper: 0
   Devel::Declare::Interface: 0
   Devel::Declare::Parser: 0
   Encode: 0
-  Exporter::Declare: 0
-  File::Path: 0
-  JSON::Any: 0
+  Exporter::Declare::Magic: 0.107
+  JSON: 0
   Locale::Wolowitz: 0
-  Log::Dispatch: 0
-  Log::Handler: 0
-  MIME::Types: 0
   Module::Load: 0
-  Moose: 0
-  Moose::Role: 0
-  MooseX::ClassAttribute: 0.24
-  MooseX::NonMoose: 0
+  Moo: 0
+  Moo::Role: 0
+  Plack::Component: 0
   Plack::Request: 0
+  Scalar::Util: 0
   Tenjin: 0.070001
   Text::SpanningTable: 0
   Throwable: 0
   Tie::IxHash: 0
   Try::Tiny: 0
   XML::TreePP: 0
-  namespace::autoclean: 0
+  base: 0
+  namespace::clean: 0
+  parent: 0
   perl: 5.006
+  strict: 0
+  version: 0.77
+  warnings: 0
 resources:
-  homepage: http://github.com/ido50/Leyland
-  repository: http://github.com/ido50/Leyland
-version: 0.001007
+  homepage: https://github.com/ido50/Leyland
+  repository: https://github.com/ido50/Leyland.git
+version: 1.000000

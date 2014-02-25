@@ -4,7 +4,7 @@ package Leyland::Parser;
 
 use strict;
 use warnings;
-use Exporter::Declare '-magic';
+use Exporter::Declare::Magic 0.107;
 
 =head1 NAME
 
@@ -12,7 +12,7 @@ Leyland::Parser - Provides the sweet REST syntax for Leyland controller routes
 
 =head1 VERSION
 
-version 0.001007
+version 1.000000
 
 =head1 SYNOPSIS
 
@@ -21,9 +21,9 @@ version 0.001007
 
 	package MyApp::Controller::Stuff;
 
-	use Moose;
+	use Moo;
 	use Leyland::Parser;
-	use namespace::autoclean;
+	use namespace::clean;
 
 	prefix { '/stuff' }
 
@@ -36,7 +36,7 @@ version 0.001007
 		# do stuff
 	}
 
-	__PACKAGE__->meta->make_immutable;
+	1;
 
 =head1 DESCRIPTION
 
@@ -45,12 +45,12 @@ It exports Leyland's sweet syntax for creating routes and prefixes.
 
 =cut
 
-default_export get Leyland::Parser::Route { caller->add_route('get',  @_) }
-default_export put Leyland::Parser::Route { caller->add_route('put',  @_) }
-default_export del Leyland::Parser::Route { caller->add_route('del',  @_) }
-default_export any Leyland::Parser::Route { caller->add_route('any',  @_) }
-default_export post Leyland::Parser::Route { caller->add_route('post', @_) }
-default_export prefix codeblock { caller->set_prefix(@_) }
+default_export get Leyland::Parser::Route { caller->add_route('get',  @_) if caller->does('Leyland::Controller') };
+default_export put Leyland::Parser::Route { caller->add_route('put',  @_) if caller->does('Leyland::Controller') };
+default_export del Leyland::Parser::Route { caller->add_route('del',  @_) if caller->does('Leyland::Controller') };
+default_export any Leyland::Parser::Route { caller->add_route('any',  @_) if caller->does('Leyland::Controller') };
+default_export post Leyland::Parser::Route { caller->add_route('post', @_) if caller->does('Leyland::Controller') };
+default_export prefix codeblock { caller->set_prefix(@_) if caller->does('Leyland::Controller') };
 
 =head1 AUTHOR
 
@@ -96,7 +96,7 @@ L<http://search.cpan.org/dist/Leyland/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2011 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published

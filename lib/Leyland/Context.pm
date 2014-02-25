@@ -2,15 +2,14 @@ package Leyland::Context;
 
 # ABSTRACT: The working environment of an HTTP request and Leyland response
 
-use Moose;
-use MooseX::NonMoose;
-use namespace::autoclean;
+use Moo;
+use namespace::clean;
 
 use Carp;
 use Data::Dumper;
-use JSON::Any;
+use JSON;
 use Leyland::Exception;
-use MIME::Types;
+use Leyland::Logger;
 use Module::Load;
 use Text::SpanningTable;
 use Try::Tiny;
@@ -24,7 +23,7 @@ Leyland::Context - The working environment of an HTTP request and Leyland respon
 
 =head1 VERSION
 
-version 0.001007
+version 1.000000
 
 =head1 SYNOPSIS
 
@@ -91,11 +90,6 @@ Holds the <Leyland> object of the application.
 Holds the L<Plack> environment in which the application is running. This
 is the C<PLACK_ENV> environment variable. See the C<-E> or C<--env> switch
 in L<plackup> for more information. Defaults to 'development'.
-
-=head2 num
-
-The sequential number of the request (since the application has been
-initialized).
 
 =head2 res
 
@@ -174,41 +168,113 @@ parsing. Not to be used directly.
 
 =cut
 
-has 'app' => (is => 'ro', isa => 'Leyland', required => 1);
+has 'app' => (
+	is => 'ro',
+	isa => sub { die "app must be a Leyland object" unless ref $_[0] && $_[0]->isa('Leyland') },
+	required => 1,
+	handles => ['cwe', 'views', 'config']
+);
 
-has 'cwe' => (is => 'ro', isa => 'Str', default => $ENV{PLACK_ENV});
+has 'res' => (
+	is => 'lazy',
+	isa => sub { die "res must be a Plack::Response object" unless ref $_[0] && $_[0]->isa('Plack::Response') }
+);
 
-has 'num' => (is => 'ro', isa => 'Int', default => 0);
+has 'routes' => (
+	is => 'ro',
+	isa => sub { die "routes must be an array-ref" unless ref $_[0] && ref $_[0] eq 'ARRAY' },
+	predicate => 'has_routes',
+	writer => '_set_routes'
+);
 
-has 'res' => (is => 'ro', isa => 'Plack::Response', lazy_build => 1);
+has 'current_route' => (
+	is => 'ro',
+	isa => sub { die "current_route must be an integer" unless $_[0] =~ m/^\d+$/ },
+	default => 0,
+	writer => '_set_current_route'
+);
 
-has 'routes' => (is => 'ro', isa => 'ArrayRef[HashRef]', predicate => 'has_routes', writer => '_set_routes');
+has 'froutes' => (
+	is => 'ro',
+	isa => sub { die "froutes must be an array-ref" unless ref $_[0] && ref $_[0] eq 'ARRAY' },
+	predicate => 'has_froutes',
+	writer => '_set_froutes',
+	clearer => '_clear_froutes'
+);
 
-has 'current_route' => (is => 'ro', isa => 'Int', default => 0, writer => '_set_current_route');
+has 'current_froute' => (
+	is => 'ro',
+	isa => sub { die "current_froute must be an integer" unless $_[0] =~ m/^\d+$/ },
+	default => 0,
+	writer => '_set_current_froute'
+);
 
-has 'froutes' => (is => 'ro', isa => 'ArrayRef[HashRef]', predicate => 'has_froutes', writer => '_set_froutes', clearer => '_clear_froutes');
+has 'controller' => (
+	is => 'ro',
+	isa => sub { die "controller must be a scalar" if ref $_[0] },
+	writer => '_set_controller'
+);
 
-has 'current_froute' => (is => 'ro', isa => 'Int', default => 0, writer => '_set_current_froute');
+has 'wanted_mimes' => (
+	is => 'ro',
+	isa => sub { die "wanted_mimes must be an array-ref" unless ref $_[0] && ref $_[0] eq 'ARRAY' },
+	builder => '_build_mimes'
+);
 
-has 'controller' => (is => 'ro', isa => 'Str', writer => '_set_controller');
+has 'want' => (
+	is => 'ro',
+	isa => sub { die "want must be a scalar" if ref $_[0] },
+	writer => '_set_want'
+);
 
-has 'wanted_mimes' => (is => 'ro', isa => 'ArrayRef[HashRef]', builder => '_build_mimes');
+has 'lang' => (
+	is => 'ro',
+	isa => sub { die "lang must be a scalar" if ref $_[0] },
+	writer => 'set_lang',
+	default => 'en'
+);
 
-has 'want' => (is => 'ro', isa => 'Str', writer => '_set_want');
+has 'stash' => (
+	is => 'ro',
+	isa => sub { die "stash must be an hash-ref" unless ref $_[0] && ref $_[0] eq 'HASH' },
+	default => sub { {} }
+);
 
-has 'lang' => (is => 'ro', isa => 'Str', writer => 'set_lang', default => 'en');
+has 'user' => (
+	is => 'ro',
+	predicate => 'has_user',
+	writer => 'set_user',
+	clearer => 'clear_user'
+);
 
-has 'stash' => (is => 'ro', isa => 'HashRef', default => sub { {} });
+has 'log' => (
+	is => 'lazy',
+	isa => sub { die "log must be a Leyland::Logger object" unless ref $_[0] && ref $_[0] eq 'Leyland::Logger' }
+);
 
-has 'user' => (is => 'ro', isa => 'Any', predicate => 'has_user', writer => 'set_user', clearer => 'clear_user');
+has 'json' => (
+	is => 'ro',
+	isa => sub { die "json must be a JSON object" unless ref $_[0] && ref $_[0] eq 'JSON' },
+	default => sub { JSON->new->utf8(0)->convert_blessed }
+);
 
-has 'json' => (is => 'ro', isa => 'Object', default => sub { JSON::Any->new(utf8 => 1) }); # 'isa' should be 'JSON::Any', but for some reason JSON::Any->new blesses an array-ref, so validation fails
+has 'xml' => (
+	is => 'ro',
+	isa => sub { die "xml must be an XML::TreePP object" unless ref $_[0] && ref $_[0] eq 'XML::TreePP' },
+	default => sub { my $xml = XML::TreePP->new(); $xml->set(utf8_flag => 1); return $xml; }
+);
 
-has 'xml' => (is => 'ro', isa => 'XML::TreePP', default => sub { my $xml = XML::TreePP->new(); $xml->set(utf8_flag => 1); return $xml; });
+has '_pass_next' => (
+	is => 'ro',
+	default => 0,
+	writer => '_set_pass_next'
+);
 
-has '_pass_next' => (is => 'ro', isa => 'Bool', default => 0, writer => '_set_pass_next');
-
-has '_data' => (is => 'ro', isa => 'Any', predicate => '_has_data', writer => '_set_data');
+has '_data' => (
+	is => 'ro',
+	predicate => '_has_data',
+	writer => '_set_data'
+);
 
 =head1 OBJECT METHODS
 
@@ -224,30 +290,6 @@ An alias for the "app" attribute.
 =cut
 
 sub leyland { shift->app }
-
-=head2 log()
-
-A shortcut for C<< $c->app->log >>.
-
-=cut
-
-sub log { shift->app->log }
-
-=head2 config()
-
-A shortcut for C<< $c->app->config >>.
-
-=cut
-
-sub config { shift->app->config }
-
-=head2 views()
-
-A shortcut for C<< $c->app->views >>.
-
-=cut
-
-sub views { shift->app->views }
 
 =head2 has_routes()
 
@@ -291,26 +333,29 @@ sub params { shift->parameters->as_hashref_mixed }
 Returns the data of the request for POST and PUT requests. If the data
 is JSON or XML, this module will attempt to automatically convert it to a Perl
 data structure, which will be returned by this method (if conversion will
-fail, this method will return C<undef>). Otherwise, the data will be returned
+fail, this method will return an empty hash-ref). Otherwise, the data will be returned
 as is. You can force this method to return the data as is even if it's
 JSON or XML by passing a true value to this method.
+
+If the request had no content, an empty hash-ref will be returned. This is different
+than version 0.003 and down where it would have returned C<undef>.
 
 =cut
 
 sub data {
 	my ($self, $dont_parse) = @_;
 
-	return unless $self->content_type && $self->content;
+	return {} unless $self->content_type && $self->content;
 
 	return $self->_data if $self->_has_data;
 
 	if ($self->content_type =~ m!^application/json! && !$dont_parse) {
-		my $data = try { $self->json->from_json($self->content) } catch { undef };
+		my $data = try { $self->json->decode($self->content) } catch { {} };
 		return unless $data;
 		$self->_set_data($data);
 		return $self->_data;
 	} elsif ($self->content_type =~ m!^application/(atom+)?xml! && !$dont_parse) {
-		my $data = try { $self->xml->parse($self->content) } catch { undef };
+		my $data = try { $self->xml->parse($self->content) } catch { {} };
 		return unless $data;
 		$self->_set_data($data);
 		return $self->_data;
@@ -414,11 +459,12 @@ performed had the route been invoked directly) is returned and the route
 from which the C<forward> has been called continues. If you don't want
 it to continue, simple use C<< return $c->forward('/somewhere') >>.
 
-At times, you'd have two or more routes sharing the exact same path, but
-each having a different HTTP method. In that case, it is unknown which
-route will be forwarded to. To force Leyland to forward to a route of a
-specific method, prefix C<$path> with the method name and a colon,
-like so: C<< $c->forward('POST:/somehwere') >>.
+The path should include the HTTP method of the route to forward to, by
+prefixing C<$path> with the method name and a colon, like so: C<< $c->forward('POST:/somewhere') >>.
+If a method is not provided (i.e. C<< $c->forward('/somewhere') >>), C<Leyland>
+will assume a C<GET> method. Note that this differs from version C<0.003> and
+down, where it would forward to the first matching route, regardless of the method.
+This is a safety measure so you do not accidentally forward to C<DELETE> routes.
 
 Note that if no routes are found, a 500 Internal Server Error will be
 thrown, not a 404 Not Found error, as this really is an internal server
@@ -436,11 +482,11 @@ sub forward {
 	if ($path =~ m/^(GET|POST|PUT|DELETE|HEAD|OPTIONS):/) {
 		$method = $1;
 		$path = $';
-
-		$self->log->info("Attempting to forward request to $path with a $method method.");
 	} else {
-		$self->log->info("Attempting to forward request to $path with any method.");
+		$method = 'GET';
 	}
+
+	$self->log->debug("Attempting to forward request to $path with a $method method.");
 
 	my $routes = Leyland::Negotiator->_negotiate_path($self, {
 		app_routes => $self->app->routes,
@@ -463,7 +509,7 @@ sub forward {
 	# are we passing to the next matching route?
 	# to prevent infinite loops, limit passing to no more than 100 times
 	while ($self->_pass_next && $self->current_froute < 100) {
-		$self->log->info("Passing request to the next matching route.");
+		$self->log->debug("Passing request to the next matching route.");
 
 		# we need to pass to the next matching route.
 		# first, let's erase the pass flag from the context
@@ -612,10 +658,9 @@ sub _respond {
 
 	$self->res->status($status) if $status && $status =~ m/^\d+$/;
 	$self->res->headers($headers) if $headers && ref $headers eq 'HASH';
+	$self->res->header('X-Framework' => 'Leyland '.$Leyland::DISPLAY_VERSION);
 	if ($content) {
-		my $mimetypes = MIME::Types->new;
-		my MIME::Type $mime = $mimetypes->type($self->res->content_type);
-		my $body = (($mime && $mime->isAscii) || $self->res->content_type =~ m!^text/!) ? Encode::encode('UTF-8', $content) : $content;
+		my $body = Encode::encode('UTF-8', $content);
 		$self->res->body($body);
 		$self->res->content_length(length($body));
 	}
@@ -628,37 +673,18 @@ sub _respond {
 sub _log_request {
 	my $self = shift;
 
-	my $t = Text::SpanningTable->new(20, 20, 12, 20, 28);
-
-	$self->stash->{_tft} = $t;
-
-	$self->log->info($t->hr('top'));
-	$self->log->info($t->row('Request #', 'Address', 'Method', 'Path', 'Content-Type'));
-	$self->log->info($t->dhr);
-	foreach (split(/\n/, $t->row($self->num, $self->address, $self->method, $self->path, $self->content_type))) {
-		$self->log->info($_);
-	}
-	$self->log->info($t->hr);
-
-	$self->log->set_exec(sub { $_[0]->stash->{_tft}->row([5, $_[1]]) }, $self);
+	print STDOUT "\n", '='x80, "\n",
+			 '| New request: ', $self->method, ' ', $self->path, ' from ', $self->address, "\n",
+			 '-'x80, "\n";
 }
 
 sub _log_response {
 	my $self = shift;
 
-	my $t = $self->stash->{_tft};
-	
-	$self->log->clear_exec();
-	$self->log->clear_args();
-
-	$self->log->info($t->hr);
-	foreach (split(/\n/, $t->row($self->num, $self->res->status.' '.$Leyland::CODES->{$self->res->status}->[0], [3, $self->res->content_type]))) {
-		$self->log->info($_);
-	}
-	$self->log->info($t->dhr);
-	$self->log->info($t->row('Response #', 'Status', [3, 'Content-Type']));
-	$self->log->info($t->hr('bottom'));
-	$self->log->info(' ');
+	print STDOUT '-'x80, "\n",
+			 '| Response code: ', $self->res->status, ' ', $Leyland::CODES->{$self->res->status}, "\n",
+			 '| Response type: ', $self->res->content_type, "\n",
+			 '='x80, "\n";
 }
 
 sub _invoke_route {
@@ -696,7 +722,7 @@ sub _serialize {
 	unless ($ct) {
 		$ct = $want.'; charset=UTF-8' if $want && $want =~ m/text|json|xml|html|atom/;
 		$ct ||= 'text/plain; charset=UTF-8';
-		$self->log->info($ct .' will be returned');
+		$self->log->debug($ct .' will be returned');
 		$self->res->content_type($ct);
 	}
 
@@ -750,13 +776,23 @@ sub _structure {
 	my ($self, $obj, $want) = @_;
 	
 	if ($want eq 'application/json') {
-		return $self->json->to_json($obj);
+		return $self->json->encode($obj);
 	} elsif ($want eq 'application/atom+xml' || $want eq 'application/xml') {
 		return $self->xml->write($obj);
 	} else {
 		# return json anyway (temporary)
-		return $self->json->to_json($obj);
+		return $self->json->encode($obj);
 	}
+}
+
+sub _build_log {
+	my $self = shift;
+
+	my %opts;
+	$opts{logger} = $self->env->{'psgix.logger'}
+		if $self->env->{'psgix.logger'};
+
+	Leyland::Logger->new(%opts);
 }
 
 =head2 FOREIGNBUILDARGS( \%args )
@@ -787,7 +823,11 @@ decode the content, this class does since Leyland is purely UTF-8).
 
 =cut
 
-override 'content' => sub { $_[0]->env->{'leyland.request.content'} ||= Encode::decode('UTF-8', super()) };
+around content => sub {
+	my ($orig, $self) = @_;
+
+	return $self->env->{'leyland.request.content'} ||= Encode::decode('UTF-8', $self->$orig);
+};
 
 =head2 session()
 
@@ -799,7 +839,11 @@ to it will only be alive for the lifetime of the request.
 
 =cut
 
-override 'session' => sub { super() || {} };
+around session => sub {
+	my ($orig, $self) = @_;
+
+	return $self->$orig || {};
+};
 
 =head2 query_parameters()
 
@@ -809,13 +853,13 @@ decode the query, this class does since Leyland is purely UTF-8).
 
 =cut
 
-override 'query_parameters' => sub {
-	my $self = shift;
+around query_parameters => sub {
+	my ($orig, $self) = @_;
 
 	if ($self->env->{'leyland.request.query'}) {
 		return $self->env->{'leyland.request.query'};
 	} else {
-		my $params = super()->as_hashref_mixed;
+		my $params = $self->$orig->as_hashref_mixed;
 		foreach (keys %$params) {
 			if (ref $params->{$_}) { # implied: ref $params->{$_} eq 'ARRAY'
 				my $arr = [];
@@ -839,8 +883,8 @@ decode the body, this class does since Leyland is purely UTF-8).
 
 =cut
 
-override 'body_parameters' => sub {
-	my $self = shift;
+around body_parameters => sub {
+	my ($orig, $self) = @_;
 
 	$self->_parse_request_body
 		unless $self->env->{'leyland.request.body'};
@@ -848,7 +892,7 @@ override 'body_parameters' => sub {
 	return $self->env->{'leyland.request.body'};
 };
 
-after '_parse_request_body' => sub {
+after _parse_request_body => sub {
 	my $self = shift;
 
 	# decode the body parameters
@@ -869,8 +913,10 @@ after '_parse_request_body' => sub {
 	}
 };
 
-override '_uri_base' => sub {
-	my $base = super();
+around _uri_base => sub {
+	my ($orig, $self) = @_;
+
+	my $base = $self->$orig;
 	$base .= '/' unless $base =~ m!/$!;
 	return $base;
 };
@@ -915,7 +961,7 @@ L<http://search.cpan.org/dist/Leyland/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2011 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
@@ -925,4 +971,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-__PACKAGE__->meta->make_immutable;
+1;

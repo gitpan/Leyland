@@ -13,7 +13,7 @@ Leyland::Negotiator - Performs HTTP negotiations for Leyland requests
 
 =head1 VERSION
 
-version 0.001007
+version 1.000000
 
 =head1 SYNOPSIS
 
@@ -78,7 +78,7 @@ sub negotiate {
 	# --------------------------------------------------------------
 	# Leyland only supports UTF-8 character encodings, so let's check
 	# the client supports that. If not, let's return an error
-	$c->log->info('Negotiating character set.');
+	$c->log->debug('Negotiating character set.');
 	Leyland::Negotiator->_negotiate_charset($c)
 		|| $c->exception({ code => 400, error => "This server only supports the UTF-8 character set, unfortunately we are unable to fulfil your request." });
 
@@ -92,12 +92,12 @@ sub negotiate {
 	$routes = $class->_negotiate_path($c, { app_routes => $app_routes, path => $path });
 	$c->exception({ code => 404 }) unless scalar @$routes;
 
-	$c->log->info('Found '.scalar(@$routes).' routes matching '.$path);
+	$c->log->debug('Found '.scalar(@$routes).' routes matching '.$path);
 
 	# 3. REQUEST METHOD NEGOTIATION
 	# --------------------------------------------------------------
 	# weed out routes that do not match request method
-	$c->log->info('Negotiating request method.');
+	$c->log->debug('Negotiating request method.');
 	$routes = $class->_negotiate_method($c->method, $routes);
 	$c->exception({ code => 405 }) unless scalar @$routes;
 
@@ -105,7 +105,7 @@ sub negotiate {
 	# --------------------------------------------------------------
 	# weed out all routes that do not accept the media type that the
 	# client used for the request
-	$c->log->info('Negotiating media type received.');
+	$c->log->debug('Negotiating media type received.');
 	$routes = $class->_negotiate_receive_media($c, $routes);
 	$c->exception({ code => 415 }) unless scalar @$routes;
 
@@ -113,7 +113,7 @@ sub negotiate {
 	# --------------------------------------------------------------
 	# weed out all routes that do not return any media type
 	# the client accepts
-	$c->log->info('Negotiating media type returned.');
+	$c->log->debug('Negotiating media type returned.');
 	$routes = $class->_negotiate_return_media($c, $routes);
 	$c->exception({ code => 406 }) unless scalar @$routes;
 
@@ -163,14 +163,6 @@ sub method_name {
 	return uc($meth);
 }
 
-=head1 INTERNAL METHODS
-
-The following methods are only to be used internally.
-
-=head2 _negotiate_path( $c, \%args )
-
-=cut
-
 sub _negotiate_path {
 	my ($class, $c, $args) = @_;
 
@@ -186,10 +178,6 @@ sub _negotiate_path {
 		return $routes;
 	}
 }
-
-=head2 _prefs_and_routes( $path )
-
-=cut
 
 sub _prefs_and_routes {
 	my ($class, $path) = @_;
@@ -210,10 +198,6 @@ sub _prefs_and_routes {
 
 	return $pref_routes;
 }
-
-=head2 _matching_routes( $app_routes, $pref_routes, $internal )
-
-=cut
 
 sub _matching_routes {
 	my ($class, $app_routes, $pref_routes, $internal) = @_;
@@ -253,19 +237,11 @@ sub _matching_routes {
 	return $routes;
 }
 
-=head2 _negotiate_method( $method, $routes )
-
-=cut
-
 sub _negotiate_method {
 	my ($class, $method, $routes) = @_;
 
 	return [grep { $class->method_name($_->{method}) eq $method || $_->{method} eq 'any' } @$routes];
 }
-
-=head2 _negotiate_receive_media( $c, $all_routes )
-
-=cut
 
 sub _negotiate_receive_media {
 	my ($class, $c, $all_routes) = @_;
@@ -280,7 +256,7 @@ sub _negotiate_receive_media {
 		$ct = $1;
 	}
 
-	$c->log->info("I have received $ct");
+	$c->log->debug("I have received $ct");
 
 	ROUTE: foreach (@$all_routes) {
 		# does this route accept all media types?
@@ -301,10 +277,6 @@ sub _negotiate_receive_media {
 	return $routes;
 }
 
-=head2 _negotiate_return_media( $c, $all_routes )
-
-=cut
-
 sub _negotiate_return_media {
 	my ($class, $c, $all_routes) = @_;
 
@@ -312,7 +284,7 @@ sub _negotiate_return_media {
 	foreach (@{$c->wanted_mimes}) {
 		push(@mimes, $_->{mime});
 	}
-	$c->log->info('Remote address wants '.join(', ', @mimes));
+	$c->log->debug('Remote address wants '.join(', ', @mimes));
 
 	# will hold all routes with acceptable return types
 	my $routes = [];
@@ -364,10 +336,6 @@ sub _negotiate_return_media {
 	
 	return $routes;
 }
-
-=head2 _negotiate_charset( $c )
-
-=cut
 
 sub _negotiate_charset {
 	my ($class, $c) = @_;
@@ -424,7 +392,7 @@ L<http://search.cpan.org/dist/Leyland/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2011 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published

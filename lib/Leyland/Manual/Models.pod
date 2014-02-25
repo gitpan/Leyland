@@ -4,7 +4,7 @@ Leyland::Manual::Models - How to use models in Leyland applications
 
 =head1 VERSION
 
-version 0.001007
+version 1.000000
 
 =head1 LEYLAND AND MODELS
 
@@ -52,22 +52,22 @@ And then initialize the model in C<MyApp.pm>:
 
 	package MyApp;
 
-	use Moose;
-	use namespace::autoclean;
+	use Moo;
 	use MyApp::Model::DB;
+	use namespace::clean;
 
-	has 'db' => (is => 'ro', isa => 'MyApp::Model::DB', writer => '_set_db');
+	has 'db' => (is => 'ro', writer => '_set_db');
 
 	extends 'Leyland';
 
-	sub setup {
+	sub BUILD {
 		my $self = shift;
 
 		# initialize the database
 		$self->_set_db(MyApp::Model::DB->connect($dbi_dsn, $user, $pass, \%dbi_params));
 	}
 
-	__PACKAGE__->meta->make_immutable;
+	1;
 
 As you can see, you will need to manually C<use> the model class. We've
 added a "db" attribute to our application, in which we will store our
@@ -108,7 +108,7 @@ Then, we can initialize the model in C<MyApp.pm>:
 
 	extends 'Leyland';
 
-	sub setup {
+	sub BUILD {
 		my $self = shift;
 
 		# initialize the database
@@ -121,12 +121,12 @@ Then, we can initialize the model in C<MyApp.pm>:
 	sub ensure_indexes {
 		my $self = shift;
 
-		$self->db->artist->ensure_index([ artistid => 1 ], { unique => 1 });
+		$self->db->get_collection('artist')->ensure_index([ artistid => 1 ], { unique => 1 });
 	}
 
 	__PACKAGE__->meta->make_immutable;
 
-The C<ensure_indexes()> is just an example. I find it good practice to
+The C<ensure_indexes()> method is just an example. I find it good practice to
 make sure all indexes exist when my applications initialize.
 
 As with DBIx::Class, the database object is now available for the application
@@ -177,7 +177,7 @@ L<http://search.cpan.org/dist/Leyland/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2011 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published

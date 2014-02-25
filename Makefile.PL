@@ -9,67 +9,95 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Plack-based framework for RESTful web applications',
-  'AUTHOR' => 'Ido Perlmuter <ido@ido50.net>',
-  'BUILD_REQUIRES' => {
-    'Test::More' => '0'
+  "ABSTRACT" => "RESTful web application framework based on Plack",
+  "AUTHOR" => "Ido Perlmuter <ido\@ido50.net>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "DISTNAME" => "Leyland",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Leyland",
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "Data::Dumper" => 0,
+    "Devel::Declare::Interface" => 0,
+    "Devel::Declare::Parser" => 0,
+    "Encode" => 0,
+    "Exporter::Declare::Magic" => "0.107",
+    "JSON" => 0,
+    "Locale::Wolowitz" => 0,
+    "Module::Load" => 0,
+    "Moo" => 0,
+    "Moo::Role" => 0,
+    "Plack::Component" => 0,
+    "Plack::Request" => 0,
+    "Scalar::Util" => 0,
+    "Tenjin" => "0.070001",
+    "Text::SpanningTable" => 0,
+    "Throwable" => 0,
+    "Tie::IxHash" => 0,
+    "Try::Tiny" => 0,
+    "XML::TreePP" => 0,
+    "base" => 0,
+    "namespace::clean" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "version" => "0.77",
+    "warnings" => 0
   },
-  'DISTNAME' => 'Leyland',
-  'EXE_FILES' => [
-    'bin/leyland'
-  ],
-  'LICENSE' => 'perl',
-  'NAME' => 'Leyland',
-  'PREREQ_PM' => {
-    'App::Cmd::Setup' => '0',
-    'Carp' => '0',
-    'Cwd' => '0',
-    'Data::Dumper' => '0',
-    'Devel::Declare::Interface' => '0',
-    'Devel::Declare::Parser' => '0',
-    'Encode' => '0',
-    'Exporter::Declare' => '0',
-    'File::Path' => '0',
-    'JSON::Any' => '0',
-    'Locale::Wolowitz' => '0',
-    'Log::Dispatch' => '0',
-    'Log::Handler' => '0',
-    'MIME::Types' => '0',
-    'Module::Load' => '0',
-    'Moose' => '0',
-    'Moose::Role' => '0',
-    'MooseX::ClassAttribute' => '0.24',
-    'MooseX::NonMoose' => '0',
-    'Plack::Request' => '0',
-    'Tenjin' => '0.070001',
-    'Text::SpanningTable' => '0',
-    'Throwable' => '0',
-    'Tie::IxHash' => '0',
-    'Try::Tiny' => '0',
-    'XML::TreePP' => '0',
-    'namespace::autoclean' => '0'
+  "TEST_REQUIRES" => {
+    "HTTP::Request::Common" => 0,
+    "Plack::Test" => 0,
+    "Test::More" => 0,
+    "lib" => 0
   },
-  'VERSION' => '0.001007',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "1.000000",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
 
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
-  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM};
-  for my $mod ( keys %$br ) {
-    if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
-    }
-    else {
-      $pp->{$mod} = $br->{$mod};
-    }
-  }
+my %FallbackPrereqs = (
+  "Carp" => 0,
+  "Data::Dumper" => 0,
+  "Devel::Declare::Interface" => 0,
+  "Devel::Declare::Parser" => 0,
+  "Encode" => 0,
+  "Exporter::Declare::Magic" => "0.107",
+  "HTTP::Request::Common" => 0,
+  "JSON" => 0,
+  "Locale::Wolowitz" => 0,
+  "Module::Load" => 0,
+  "Moo" => 0,
+  "Moo::Role" => 0,
+  "Plack::Component" => 0,
+  "Plack::Request" => 0,
+  "Plack::Test" => 0,
+  "Scalar::Util" => 0,
+  "Tenjin" => "0.070001",
+  "Test::More" => 0,
+  "Text::SpanningTable" => 0,
+  "Throwable" => 0,
+  "Tie::IxHash" => 0,
+  "Try::Tiny" => 0,
+  "XML::TreePP" => 0,
+  "base" => 0,
+  "lib" => 0,
+  "namespace::clean" => 0,
+  "parent" => 0,
+  "strict" => 0,
+  "version" => "0.77",
+  "warnings" => 0
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}

@@ -15,7 +15,7 @@ Leyland::Parser::Route - Parses route definitions in Leyland controllers
 
 =head1 VERSION
 
-version 0.001007
+version 1.000000
 
 =head1 SYNOPSIS
 
@@ -115,7 +115,7 @@ L<http://search.cpan.org/dist/Leyland/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2010-2011 Ido Perlmuter.
+Copyright 2010-2014 Ido Perlmuter.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
