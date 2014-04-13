@@ -2,10 +2,6 @@
 
 Leyland::Manual::FAQ - Frequently asked questions about Leyland
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 HOW CAN I MAKE MY APP ANSWER "OPTIONS" REQUESTS?
 
 The HTTP C<OPTIONS> request method is used by clients to ask a server what

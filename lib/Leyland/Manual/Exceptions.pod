@@ -2,10 +2,6 @@
 
 Leyland::Manual::Exceptions - How to throw HTTP exceptions with Leyland
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 HTTP EXCEPTIONS
 
 L<Leyland> is a framework for RESTful web applications. RESTful apps are

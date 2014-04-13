@@ -2,10 +2,6 @@
 
 Leyland::Manual::Models - How to use models in Leyland applications
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 LEYLAND AND MODELS
 
 As mentioned in L<Leyland::Manual::Applications>, L<Leyland> does not

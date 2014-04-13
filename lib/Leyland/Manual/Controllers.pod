@@ -2,10 +2,6 @@
 
 Leyland::Manual::Controllers - Creating Leyland controllers
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 CONTROLLERS
 
 Controllers are the main building blocks of your application. They define

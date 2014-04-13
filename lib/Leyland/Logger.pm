@@ -9,10 +9,6 @@ use namespace::clean;
 
 Leyland::Logger - Wrapper around Plack's logging middlewares
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# in your app.psgi file
@@ -77,7 +73,7 @@ This class provides methods for the following log levels:
 
 =item * B<error> (with an B<err> alias)
 
-=item * B<critical> (with a B<crit> and C<fatal> aliases)
+=item * B<critical> (with a B<crit> and B<fatal> aliases)
 
 =item * B<alert>
 
@@ -120,18 +116,6 @@ foreach (
 	};
 }
 use strict 'refs';
-
-=head1 NAME
-
-Leyland::Logger - Logging facilities for Leyland application
-
-=head1 SYNOPSIS
-
-=head1 DESCRIPTION
-
-=head1 ATTRIBUTES
-
-=head1 METHODS
 
 =head1 AUTHOR
 

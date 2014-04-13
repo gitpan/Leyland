@@ -10,10 +10,6 @@ our %INFO;
 
 Leyland::Controller - Leyland controller base class
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# used internally

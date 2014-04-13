@@ -7,7 +7,7 @@ use parent 'Plack::Component';
 use namespace::clean;
 use version 0.77;
 
-our $VERSION = "1.000001";
+our $VERSION = "1.000002";
 $VERSION = eval $VERSION;
 our $DISPLAY_VERSION = version->parse($VERSION)->normal;
 
@@ -26,10 +26,6 @@ our %INFO;
 =head1 NAME
 
 Leyland - RESTful web application framework based on Plack
-
-=head1 VERSION
-
-version 1.000001
 
 =head1 SYNOPSIS
 
@@ -187,7 +183,7 @@ has 'context_class' => (
 	is => 'ro',
 	isa => sub { die "context_class must be a scalar" if ref $_[0] },
 	writer => '_set_context_class',
-	default => 'Leyland::Context'
+	default => sub { 'Leyland::Context' }
 );
 
 has 'localizer' => (

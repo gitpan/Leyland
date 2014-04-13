@@ -13,10 +13,6 @@ Devel::Declare::Interface::register_parser(__PACKAGE__);
 
 Leyland::Parser::Route - Parses route definitions in Leyland controllers
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# see Leyland::Parser for information

@@ -1,9 +1,6 @@
 NAME
     Leyland - RESTful web application framework based on Plack
 
-VERSION
-    version 1.000001
-
 SYNOPSIS
             # in app.psgi:
 

@@ -2,10 +2,6 @@
 
 Leyland::Manual::StaticFiles - How to serve static files from your application
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 STATIC FILES
 
 Pretty much every web application has static files, i.e. files which are

@@ -8,10 +8,6 @@ use Moo::Role;
 
 Leyland::View - Leyland view base class
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# if you're planning on creating a new Leyland view class,

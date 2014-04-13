@@ -9,10 +9,6 @@ use namespace::clean;
 
 Leyland::Exception - Throwable class for Leyland application exceptions
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# in your controllers:
@@ -140,7 +136,7 @@ has 'mimes' => (
 
 has 'use_layout' => (
 	is => 'ro',
-	default => 1
+	default => sub { 1 }
 );
 
 =head1 OBJECT METHODS

@@ -2,10 +2,6 @@
 
 Leyland::Manual - Manual for the Leyland web application framework
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 WHAT IS LEYLAND
 
 	This section is just a copy of L<Leyland/"DESCRIPTION">.

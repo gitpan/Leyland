@@ -10,10 +10,6 @@ use Tenjin 0.070001;
 
 Leyland::View::Tenjin - Tenjin view class for Leyland
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# in your app's class

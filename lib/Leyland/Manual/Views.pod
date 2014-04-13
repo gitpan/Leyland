@@ -2,10 +2,6 @@
 
 Leyland::Manual::Views - Using Leyland view classes
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 RESOURCES AND REPRESENTATIONS
 
 RESTful applications are all about resources and representations. Resources

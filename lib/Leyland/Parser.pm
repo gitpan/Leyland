@@ -10,10 +10,6 @@ use Exporter::Declare::Magic 0.107;
 
 Leyland::Parser - Provides the sweet REST syntax for Leyland controller routes
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# in a controller of your app (check out L<Leyland::Manual::Controllers/"ROUTES">

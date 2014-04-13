@@ -2,10 +2,6 @@
 
 Leyland::Manual::Deployment - How to deploy Leyland applications
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 QUICK-STARTING YOUR APPLICATION
 
 Since Leyland is L<Plack> based, running and deploying your applications

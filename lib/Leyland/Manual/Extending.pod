@@ -2,10 +2,6 @@
 
 Leyland::Manual::Extending - How to extend Leyland
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 EXTENDING THE CONTEXT CLASS
 
 The context class (L<Leyland::Context>) constitutes the most of L<Leyland>'s

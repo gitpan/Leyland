@@ -2,10 +2,6 @@
 
 Leyland::Manual::Logging - How to use a log in Leyland applications
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 LOGGING
 
 Logging is an important aspect of any web application, at least in my

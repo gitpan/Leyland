@@ -2,10 +2,6 @@
 
 Leyland::Manual::Localization - Localizing Leyland applications
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 LANGUAGE NEGOTIATION
 
 As previously mentioned, when RESTful applications receive a request from

@@ -10,10 +10,6 @@ use Locale::Wolowitz;
 
 Leyland::Localizer - Wrapper for the Locale::Wolowitz localization system for Leyland apps
 
-=head1 VERSION
-
-version 1.000001
-
 =head1 SYNOPSIS
 
 	# in your app's main package
